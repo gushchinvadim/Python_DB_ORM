@@ -66,17 +66,3 @@ def create_tables(engine):
 
     Base.metadata.create_all(engine)
 
-
-def find_data(conn, name):
-         with conn.cursor() as cur:
-             cur.execute("""
-                select  b.title, s.name, sl.price, sl.date_sale
-                from publisher p
-                join book b on b.id_publisher = p.id
-                join stock st on st.id_book = b.id
-                join shop s on st.id_shop = s.id
-                join sale sl on sl.id = s.id
-                where p.name = %s;
-            """, (name,))
-             print(cur.fetchall())
-
